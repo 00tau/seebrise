@@ -29,7 +29,7 @@ export EDITOR=/usr/bin/vim
 export PATH=~/.config/herbstluftwm:~/.config/seebrise:$PATH
 
 # keyboard
-setxkbmap kp
+setxkbmap 20170201
 
 # exec
 exec dbus-launch herbstluftwm

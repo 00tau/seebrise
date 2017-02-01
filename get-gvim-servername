@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+
+from subprocess import PIPE
+from subprocess import run
+
+import pandas as pd
+from pandas import DataFrame
+
+def get_client_name(c):
+    command = 'herbstclient attr clients.' + c + 'class'
+    x = run([command], shell=True, stdout=PIPE, check=False)
+    x = x.stdout.decode('utf-8').strip()
+    return(x)
+
+def get_client_tag(c):
+    command = 'herbstclient attr clients.' + c + 'tag'
+    x = run([command], shell=True, stdout=PIPE, check=False)
+    x = x.stdout.decode('utf-8').strip()
+    return(x)
+
+def get_clients_info():
+    command = 'herbstclient attr clients'
+    clients = run([command], shell=True, stdout=PIPE, check=False)
+    clients = clients.stdout.decode('utf-8').strip().split('\n')
+    clients = [ client.strip() for client in clients][1:-2]
+    clients.remove('focus.')
+    dat = DataFrame(
+            { 'name' : [get_client_name(c) for c in clients],
+                'tag' : [get_client_tag(c) for c in clients]}, index = clients)
+    return(dat)
+
+def get_tags():
+    command = 'herbstclient tag_status'
+    tags = run([command], shell=True, stdout=PIPE, check=False)
+    tags = tags.stdout.decode('utf-8').strip().split('\t')
+    focused = tags[['#' in name for name in tags].index(True)][1:]
+    tags.remove(tags[['#' in name for name in tags].index(True)])
+    rest = {x[1:] for x in tags}
+    return(focused, rest)
+
+def get_gvim_servername(cinfo, focused):
+    winid = cinfo.ix[(cinfo.tag == focused) & (cinfo.name == 'Gvim')]
+    if winid.empty:
+        return(focused)
+    else:
+        command = 'herbstclient attr clients.' + winid.index[0] + 'title'
+        output = run([command], shell=True, stdout=PIPE, check=False)
+        servername = output.stdout.decode('utf-8').strip().split(' ')[-1]
+        return(servername)
+
+if __name__ == '__main__':
+    cinfo = get_clients_info()
+    focused, _ = get_tags()
+    print(get_gvim_servername(cinfo, focused))

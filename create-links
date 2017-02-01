@@ -1,0 +1,28 @@
+#! /bin/bash
+
+files=(xsession Xresources gtkrc-2.0 zshrc tmux.conf)
+
+dir=`pwd`
+
+for file in ${files[@]}; do
+    source="$dir/$file"
+    dest="$HOME/.$file"
+
+    if [ ! -e $source ]; then
+       echo "Source '$source' not found"
+       continue
+    fi
+
+    if [ -L "$dest" ]; then
+        rm "$dest"
+    fi
+    if [ -e "$dest" ]; then
+	echo "'$dest' already in place"
+	continue
+    fi
+
+    ln -s "$source" "$dest"
+    echo "Created link '$source'"
+done
+
+exit 0

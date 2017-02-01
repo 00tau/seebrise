@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+
+from subprocess import PIPE
+from subprocess import run
+
+def get_tags():
+    command = 'herbstclient tag_status'
+    tags = run([command], shell=True, stdout=PIPE, check=False)
+    tags = tags.stdout.decode('utf-8').strip().split('\t')
+    tags.remove(tags[['#' in name for name in tags].index(True)])
+    tags = {x[1:] for x in tags}
+    return(tags)
+
+def ask_for_tag(tags):
+    tags = '\n'.join(tags)
+    x = run(['echo "' + tags + '" | dmenu -i'], shell=True, stdout=PIPE, check=False)
+    x = x.stdout.decode('utf-8').strip()
+    return(x)
+
+def create_tag(tag):
+    command = 'herbstclient add'
+    run([' '.join([command, tag])], shell=True, check=False)
+
+def move_to_tag(tag):
+    command = 'herbstclient use'
+    run([' '.join([command, tag])], shell=True, check=False)
+
+def move_or_create_tag(tag, tags):
+    if tag in tags:
+        move_to_tag(tag)
+    else:
+        create_tag(tag)
+        move_to_tag(tag)
+
+if __name__ == '__main__':
+    tags = get_tags()
+    tag = ask_for_tag(tags)
+    move_or_create_tag(tag, tags)

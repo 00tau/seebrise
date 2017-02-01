@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+from subprocess import PIPE
+from subprocess import run
+
+defaults = {'E-Mail', 'Web', 'Projekt', 'Manual', 'Konfiguration', 'Kalender', 'Dateimanager'}
+
+def get_tags():
+    command = 'herbstclient tag_status'
+    tags = run([command], shell=True, stdout=PIPE, check=False)
+    tags = tags.stdout.decode('utf-8').strip().split('\t')
+    focused = tags[['#' in name for name in tags].index(True)][1:]
+    tags.remove(tags[['#' in name for name in tags].index(True)])
+    rest = {x[1:] for x in tags}
+    return(focused, rest)
+
+def ask_for_tag_name(tags):
+    tags = '\n'.join(tags)
+    x = run(['echo "' + tags + '" | dmenu -i'], shell=True, stdout=PIPE, check=False)
+    x = x.stdout.decode('utf-8').strip()
+    return(x)
+
+def rename_tag(oldtag, newtag):
+    command = 'herbstclient rename'
+    x = run([' '.join([command, oldtag, newtag])], shell=True, check=True)
+    return(x)
+
+if __name__ == '__main__':
+    focused, rest = get_tags()
+    tag = ask_for_tag_name(defaults.difference(rest))
+    rename_tag(focused, tag)

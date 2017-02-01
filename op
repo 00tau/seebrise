@@ -1,0 +1,38 @@
+#! /bin/sh
+
+if [ -z $DISPLAY ]
+    then ED=vim
+    else ED=gvim
+fi
+
+servername=$(get-gvim-servername)
+
+if [ "$1" = "--help" ]
+    then echo "
+NAME
+     op - simple script for opening a file in vim
+
+SYNOPSIS
+     op
+     op FILENAME
+     op [SERVERNAME] FILENAME
+
+DESCRIPTION
+     Opens a file FILENAME in vim running as a server with name
+     SERVERNAME.  If the server does not exists, it is created.  If no
+     parameters are provided, then the names of the current running
+     vim servers are listed.
+
+SEE ALSO
+     VIM(1)
+
+AUTHOR
+     Thomas W. D. Möbius (kontakt@thomasmoebius)"
+elif test -z "$1"
+    then $ED --serverlist
+elif test -z "$2"
+    then $ED --servername $servername --remote-silent $1
+elif $ED --serverlist | grep -i $1
+    then $ED --servername $1 --remote $2
+    else $ED --servername $1 $2
+fi

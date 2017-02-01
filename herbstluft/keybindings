@@ -1,0 +1,123 @@
+#!/bin/bash
+
+# this will set all the keybindings in herbstluftwm
+
+hc() {
+    cmds="$cmds , $@"
+}
+
+# remove all existing keybindings
+hc keyunbind --all
+
+# use the some swap functions to give hc some tiling gimmics
+swap=~/.config/herbstluftwm/swap
+
+# mouse
+# hc mouseunbind --all
+# hc mousebind $Mod-Button1 move
+# hc mousebind $Mod-Button2 zoom
+# hc mousebind $Mod-Button3 resize
+
+# keybindings
+Mod=Mod4
+hc keybind $Mod-Escape spawn cinnamon-screensaver-command -l
+hc keybind $Mod-Shift-q quit
+hc keybind $Mod-colon reload
+hc keybind $Mod-Shift-d close_or_remove
+hc keybind $Mod-Return spawn xterm -e tmux
+
+# subject to be removed
+# hc keybind $Mod-Return spawn $swap stack_spawn st -e tmux
+# hc keybind $Mod-d spawn $swap auto # I've never used that
+# hc keybind $Mod-Shift-d spawn $swap close
+
+# tags
+tag_names=( {Aghaba,Balinger,Chatte,Dingi,Ewer,Fleute,Galiot,Huker} )
+tag_keys=( {7,5,3,1,2,4,6,8} 0 )
+
+hc rename default "${tag_names[0]}" || true
+for i in ${!tag_names[@]} ; do
+    hc add "${tag_names[$i]}"
+    key="${tag_keys[$i]}"
+    if ! [ -z "$key" ] ; then
+        hc keybind "$Mod-$key" use_index "$i"
+        hc keybind "$Mod-Shift-$key" move_index "$i"
+    fi
+done
+
+# renaming and moving to tags
+rename_tag=~/.config/herbstluftwm/rename-tag
+use_tag=~/.config/herbstluftwm/use-tag
+hc keybind $Mod-l spawn $rename_tag
+hc keybind $Mod-d spawn $use_tag
+
+# move around tags
+hc keybind $Mod-r     use_index +1 --skip-visible
+hc keybind $Mod-g     use_index -1 --skip-visible
+hc keybind $Mod-Right use_index +1 --skip-visible
+hc keybind $Mod-Left  use_index -1 --skip-visible
+
+# switch foctused monitor to previous tags
+hc keybind $Mod-i use_previous
+hc keybind $Mod-Shift-i jumpto urgent
+
+# move clients to different tags
+hc keybind $Mod-p           move_index +1 --skip-visible
+hc keybind $Mod-comma       move_index -1 --skip-visible
+hc keybind $Mod-Shift-Right move_index +1 --skip-visible
+hc keybind $Mod-Shift-Left  move_index -1 --skip-visible
+
+# move around panes
+hc keybind $Mod-h focus left
+hc keybind $Mod-t focus down
+hc keybind $Mod-c focus up
+hc keybind $Mod-n focus right
+
+# move clients to different panes
+hc keybind $Mod-o       shift left
+hc keybind $Mod-e       shift down
+hc keybind $Mod-period  shift up
+hc keybind $Mod-u       shift right
+
+# change pane configuration: adding and removing
+#   values are multiples of the golden fraction
+hc keybind $Mod-w split vertical # 0.7669549  # =1-(8/13)^3
+hc keybind $Mod-v split horizontal # 0.6213018 # =1-(8/13)^2
+hc keybind $Mod-q remove
+
+# change pane configuration: resize
+RESIZESTEP=0.02
+hc keybind $Mod-Shift-h resize left +$RESIZESTEP
+hc keybind $Mod-Shift-t resize down +$RESIZESTEP
+hc keybind $Mod-Shift-c resize up +$RESIZESTEP
+hc keybind $Mod-Shift-n resize right +$RESIZESTEP
+
+# change pane configuration: layout
+hc keybind $Mod-s cycle_layout 1 vertical max
+
+# change pane configuration: tiling, floating and fullscreen
+hc keybind $Mod-f pseudotile toggle
+hc keybind $Mod-Shift-f floating toggle
+hc keybind $Mod-m fullscreen toggle
+
+# move around monitors
+hc keybind $Mod-Shift-space cycle_monitor
+hc keybind $Mod-Shift-g focus_monitor -1
+hc keybind $Mod-Shift-r focus_monitor +1
+
+# cycle through clients
+hc keybind $Mod-Tab         cycle_all +1
+hc keybind $Mod-Shift-Tab   cycle_all -1
+hc keybind $Mod-space       cycle
+
+#hc keybind $Mod-q jumpto urgent
+# menu
+hc keybind $Mod-b spawn dmenu_run_hlwm -nb "#535353" -nf "#EEEEEE" -sf "#EEEEEE" -sb "#53BBCB"
+
+# sound
+hc keybind $Mod-k spawn "amixer -- sset PCM playback 5%+"
+hc keybind $Mod-j spawn "amixer -- sset PCM playback 5%-"
+hc keybind $Mod-z spawn "amixer -- sset PCM toggle"
+
+# execute all above settings
+herbstclient chain $cmds&

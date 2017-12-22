@@ -23,7 +23,8 @@ def get_clients_info():
     clients = run([command], shell=True, stdout=PIPE, check=False)
     clients = clients.stdout.decode('utf-8').strip().split('\n')
     clients = [ client.strip() for client in clients][1:-2]
-    clients.remove('focus.')
+    if 'focus.' in clients:
+        clients.remove('focus.')
     dat = DataFrame(
             { 'name' : [get_client_name(c) for c in clients],
                 'tag' : [get_client_tag(c) for c in clients]}, index = clients)

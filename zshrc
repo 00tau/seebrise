@@ -75,18 +75,16 @@ setopt correct
 export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
 
 # Aliases
-alias eu="ls -h --time-style=iso --color=auto "
+alias eu="ls -h --time-style=iso --color=auto --group-directories-first "
 alias e="eu -l "
 alias ey="eu -la "
 alias hc="herbstclient "
 alias ch="herbstclient spawn "
 alias tmux="tmux -2 "
 alias R="R --no-save -q "
-alias pp="source ~/software/python-environments/for/bin/activate"
 alias p="ipython --colors=Linux --pylab='auto' "
 alias running="htop -u $(whoami)"
 alias nemo="nemo --no-desktop "
-
 alias pan="pandoc -s --toc -S -V papersize:"a4paper" -V geometry:margin=2.5cm "
 
 # Suffix Aliases
@@ -122,13 +120,29 @@ bindkey "^T" vi-cmd-mode
 #bindkey '\e[A' history-search-backward
 #bindkey '\e[B' history-search-forward
 
-# PATH and ENVIRONMENT VARIABLES
+# ENVIRONMENT VARIABLES
 export EDITOR=/usr/bin/vim
+export PATH=~/.config/herbstluftwm:~/.config/seebrise:$PATH
 #export PAGER=/usr/local/bin/vimpager
-export PATH=~/.config/seebrise:~/.dotfiles/scripts:~/software/py2ipynb:$PATH
+
+# Software and their ENVIRONMENT VARIABLES
+
+# R
 export R_LIBS_USER=~/software/R
 
-# Freesurfer needs this
+# FSL
+alias flirt="fsl5.0-flirt "
+alias fnirt="fsl5.0-fnirt "
+alias img="fsl5.0-fnirt "
+alias img2imgcoord="fsl5.0-img2imgcoord "
+alias std2imgcoord="fsl5.0-std2imgcoord "
+alias fnirtfileutils="fsl5.0-fnirtfileutils "
+
+# ANTs
+export ANTSPATH=~/software/ants/antsbin/bin/
+export PATH=~/software/ants/antsbin/bin:~/software/ants/ANTs/Scripts:$PATH
+
+# Freesurfer
 export FREESURFER_HOME=~/software/freesurfer/freesurfer
 export FSFAST_HOME=$FREESURFER/fsfast
 export FSF_OUTPUT_FORMAT=nii
@@ -136,20 +150,11 @@ export SUBJECTS_DIR=$FREESURFER/subjects
 export MNI_DIR=$FREESURFER/mni
 alias freesource=$FREESURFER/SetUpFreeSurfer.sh
 
-# Named directories
-data=~/documents/affective-disorders/data
+# Source python environment
+alias pythonenvironment="source ~/software/python-environments/aghaba/bin/activate"
+pythonenvironment
 
-# Assuming your subprojects (say, foobar) in your main projects (say,
-# project) are organised as mine:
-#     /path/to/project/data/YYYY-MM-DD/foobar.csv
-#     /path/to/project/doc/foobar/
-#     /path/to/project/src/foobar/
-#     /path/to/project/results/foobar/
-# This allows for quick changes from src to results and vice versa.
-alias gos="here=$(pwd) | cd ${here:s/results/src}"
-alias gor="here=$(pwd) | cd ${here:s/src/results}"
-
-alias ting="ting=$(pwd) | print $ting"
-
-# source the correct python environment
-pp
+# Display current working directory at the bottom of Tmux
+precmd () {
+    tmux set -qg status-right "[#D|#P|#T|$(pwd)] "
+}

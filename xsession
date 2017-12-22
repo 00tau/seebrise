@@ -26,7 +26,7 @@ fi
 
 # path
 export EDITOR=/usr/bin/vim
-export PATH=~/.config/herbstluftwm:~/.config/seebrise:$PATH
+export PATH=/home/moebius/.config/herbstluftwm:/home/moebius/.config/seebrise:$PATH
 
 # keyboard
 setxkbmap 20170201

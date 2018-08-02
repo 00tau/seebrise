@@ -112,7 +112,7 @@ hc keybind $Mod-space       cycle
 
 #hc keybind $Mod-q jumpto urgent
 # menu
-hc keybind $Mod-b spawn dmenu_run_hlwm -nb "#535353" -nf "#EEEEEE" -sf "#EEEEEE" -sb "#53BBCB"
+hc keybind $Mod-b spawn dmenu_run -nb "#535353" -nf "#EEEEEE" -sf "#EEEEEE" -sb "#53BBCB"
 
 # sound
 hc keybind $Mod-k spawn "amixer -- sset PCM playback 5%+"

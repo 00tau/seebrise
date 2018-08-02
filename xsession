@@ -26,7 +26,7 @@ fi
 
 # path
 export EDITOR=/usr/bin/vim
-export PATH=~/.config/herbstluftwm:~/.config/seebrise:$PATH
+export PATH=/home/thomas/anaconda3/bin:/home/thomas/.config/herbstluftwm:/home/thomas/.config/seebrise:$PATH
 
 # keyboard
 setxkbmap kp

@@ -10,7 +10,7 @@ xrdb ~/.Xresources
 
 # set the wallpaper
 if [ -x /usr/bin/feh ] ; then
-    ~/.fehbg
+    sh ~/.fehbg
     #eval $(cat ~/.fehbg)
 fi
 

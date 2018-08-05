@@ -152,7 +152,7 @@ to do with tmux.
 As you are working in the terminal a lot:
 
 ```
-# aptitude install dtrx tree
+# aptitude install dtrx tree htop
 ```
 
 Get a working python3 environment running
@@ -190,7 +190,7 @@ Change your default terminal emulator to `st`:
 % sudo update-alternatives --config x-terminal-emulator
 ```
 
-Set the backgroud
+Set the wallpaper
 -----------------
 
 Use feh to set the background to something you like.

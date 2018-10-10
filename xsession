@@ -29,7 +29,7 @@ export EDITOR=/usr/bin/vim
 export PATH=/home/thomas/anaconda3/bin:/home/thomas/.config/herbstluftwm:/home/thomas/.config/seebrise:$PATH
 
 # keyboard
-setxkbmap kp
+setxkbmap kp kinesis # typematrix
 
 # exec
 exec dbus-launch herbstluftwm

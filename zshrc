@@ -123,13 +123,12 @@ bindkey "^T" vi-cmd-mode
 #bindkey '\e[B' history-search-forward
 
 # PATH and ENVIRONMENT VARIABLES
-#export R_LIBS_USER=/home/thomas/R
 #export PAGER=/usr/local/bin/vimpager
-#export PATH=/home/thomas/anaconda3/bin:/home/thomas/.config/seebrise:$PATH
 
 export EDITOR=/usr/bin/vim
-export PATH=/home/thomas/context/tex/texmf-linux-64/bin:$PATH
+export PATH=/home/moebius/Software/context/tex/texmf-linux-64/bin:/home/moebius/Software/anaconda3/bin:/home/moebius/Systemadministration/seebrise:$PATH
 export OSFONTDIR=/usr/local/share/fonts
+export R_LIBS_USER=/home/moebius/Software/R
 
 # Named directories
 work=~/galiot/aghaba/fmri-regression/devel

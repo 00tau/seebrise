@@ -100,20 +100,33 @@ Some Notes
 Installation
 ------------
 
-Having a freshly installed vanilla Ubuntu, install the following
-packages.
+If you have a freshly installed vanilla Ubuntu / Debian / MINT Linux on your
+system, then install the following packages.
 
 ```
-# apt-get install git vim-gtk zsh tmux herbstluftwm dmenu feh sxiv mupdf xdotool unclutter cinnamon-screensaver silversearcher-ag
+# apt-get install xterm git vim-gtk zsh tmux herbstluftwm dmenu dzen2 feh sxiv mupdf xdotool unclutter silversearcher-ag
 ```
 
-Clone the files of this repository and create necessary links.
+Or, if you prefere aptitude.
+
+```
+# aptitude install xterm git vim-gtk zsh tmux herbstluftwm dmenu dzen2 feh sxiv mupdf xdotool unclutter silversearcher-ag
+```
+
+I do like the cinnamon screensaver which is why Seebrise sets its default
+keybinding to invoke it. If you like it too, then install it.
+
+```
+# aptitude install cinnamon-screensaver
+```
+
+Clone the files of this repository and create all the necessary links.
 
 ```
 % git clone https://github.com/00tau/seebrise.git ~/.config/seebrise
 % cd ~/.config/seebrise
 % ./create-links
-% ln -s ~/.seebrise/herbstluftwm ~/.config/herbstluftwm
+% ln -s ~/.config/seebrise/herbstluftwm ~/.config/herbstluftwm
 ```
 
 Add Seebrise to the list of X sessions
@@ -126,10 +139,26 @@ Add Seebrise to the list of X sessions
 Make zsh your primary login shell
 ---------------------------------
 
+If you find yourself in the position that copy and paste into the terminal
+window with the middle mouse does not work, pressing SHIFT and the middle mouse
+resolves the issue. I forgot why this is or was the case but it has something
+to do with tmux.
+
 ```
 % which zsh
 % chsh
 ```
+
+As you are working in the terminal a lot:
+
+```
+# aptitude install dtrx tree htop
+```
+
+Get a working python3 environment running
+-----------------------------------------
+
+All scripts have been written in python3. So this is kind of obligatory.
 
 Compile st (optional)
 ---------------------
@@ -161,7 +190,19 @@ Change your default terminal emulator to `st`:
 % sudo update-alternatives --config x-terminal-emulator
 ```
 
+Set the wallpaper
+-----------------
+
+Use feh to set the background to something you like.
+
+```
+feh --bg-fill /usr/share/backgrounds/linuxmint-serena/mstaudenmann_unveiled.jpg
+```
+
+This will create a file ~/.fehbg and Seebrise will used it to set the
+wallpaper during the next start up.
+
 Trivia
 ------
 
-Seebrise is German for sea breeze.
+Seebrise is German for sea breeze. The default tag names are sailing boats.

@@ -10,7 +10,7 @@ xrdb ~/.Xresources
 
 # set the wallpaper
 if [ -x /usr/bin/feh ] ; then
-    ~/.fehbg
+    sh ~/.fehbg
     #eval $(cat ~/.fehbg)
 fi
 
@@ -26,10 +26,10 @@ fi
 
 # path
 export EDITOR=/usr/bin/vim
-export PATH=/home/moebius/.config/herbstluftwm:/home/moebius/.config/seebrise:$PATH
+export PATH=/home/thomas/anaconda3/bin:/home/thomas/.config/herbstluftwm:/home/thomas/.config/seebrise:$PATH
 
 # keyboard
-setxkbmap kp kinesis
+setxkbmap kp kinesis # typematrix
 
 # exec
 exec dbus-launch herbstluftwm

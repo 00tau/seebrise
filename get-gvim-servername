@@ -40,7 +40,7 @@ def get_tags():
     return(focused, rest)
 
 def get_gvim_servername(cinfo, focused):
-    winid = cinfo.ix[(cinfo.tag == focused) & (cinfo.name == 'Gvim')]
+    winid = cinfo.loc[(cinfo.tag == focused) & (cinfo.name == 'Gvim')]
     if winid.empty:
         return(focused)
     else:

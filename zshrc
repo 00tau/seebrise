@@ -87,6 +87,12 @@ alias running="htop -u $(whoami)"
 alias nemo="nemo --no-desktop "
 alias pan="pandoc -s --toc -S -V papersize:"a4paper" -V geometry:margin=2.5cm "
 
+alias balin="ssh balin"
+
+# Aliases
+alias kalender="surf posteo.de"
+alias wunderlist="surf -u chromium wunderlist.com"
+
 # Suffix Aliases
 alias -s pdf=mupdf
 alias -s png=sxiv
@@ -128,22 +134,24 @@ export PATH=~/.config/herbstluftwm:~/.config/seebrise:$PATH
 # Software and their ENVIRONMENT VARIABLES
 
 # R
-export R_LIBS_USER=~/software/R
+export R_LIBS_USER=/home/moebius/software/R
 
 # FSL
+source /usr/share/fsl/5.0/etc/fslconf/fsl.sh
+
 alias flirt="fsl5.0-flirt "
 alias fnirt="fsl5.0-fnirt "
-alias img="fsl5.0-fnirt "
 alias img2imgcoord="fsl5.0-img2imgcoord "
 alias std2imgcoord="fsl5.0-std2imgcoord "
 alias fnirtfileutils="fsl5.0-fnirtfileutils "
 
 # ANTs
-export ANTSPATH=~/software/ants/antsbin/bin/
-export PATH=~/software/ants/antsbin/bin:~/software/ants/ANTs/Scripts:$PATH
+export ANTSPATH=/home/moebius/software/ants/antsbin/bin/
+export PATH=/home/moebius/software/ants/antsbin/bin:/home/moebius/software/ants/ANTs/Scripts:$PATH
 
 # Freesurfer
-export FREESURFER_HOME=~/software/freesurfer/freesurfer
+export FREESURFER=/home/moebius/software/freesurfer/freesurfer
+export FREESURFER_HOME=/home/moebius/software/freesurfer/freesurfer
 export FSFAST_HOME=$FREESURFER/fsfast
 export FSF_OUTPUT_FORMAT=nii
 export SUBJECTS_DIR=$FREESURFER/subjects
@@ -151,7 +159,7 @@ export MNI_DIR=$FREESURFER/mni
 alias freesource=$FREESURFER/SetUpFreeSurfer.sh
 
 # Source python environment
-alias pythonenvironment="source ~/software/python-environments/aghaba/bin/activate"
+alias pythonenvironment="source /home/moebius/software/python-environments/aghaba/bin/activate"
 pythonenvironment
 
 # Display current working directory at the bottom of Tmux

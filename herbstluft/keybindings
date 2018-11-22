@@ -93,7 +93,7 @@ hc keybind $Mod-Shift-c resize up +$RESIZESTEP
 hc keybind $Mod-Shift-n resize right +$RESIZESTEP
 
 # change pane configuration: layout
-hc keybind $Mod-s cycle_layout 1 vertical max
+hc keybind $Mod-s cycle_layout 1 vertical horizontal max
 
 # change pane configuration: tiling, floating and fullscreen
 hc keybind $Mod-f pseudotile toggle
@@ -101,14 +101,15 @@ hc keybind $Mod-Shift-f floating toggle
 hc keybind $Mod-m fullscreen toggle
 
 # move around monitors
-hc keybind $Mod-Shift-space cycle_monitor
+#hc keybind $Mod-Shift-space cycle_monitor
 hc keybind $Mod-Shift-g focus_monitor -1
 hc keybind $Mod-Shift-r focus_monitor +1
 
 # cycle through clients
-hc keybind $Mod-Tab         cycle_all +1
-hc keybind $Mod-Shift-Tab   cycle_all -1
+#hc keybind $Mod-Tab         cycle_all +1
+#hc keybind $Mod-Shift-Tab   cycle_all -1
 hc keybind $Mod-space       cycle
+hc keybind $Mod-Shift-space cycle -1
 
 #hc keybind $Mod-q jumpto urgent
 # menu
